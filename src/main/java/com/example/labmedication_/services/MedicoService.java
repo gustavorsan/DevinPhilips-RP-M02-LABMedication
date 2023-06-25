@@ -16,6 +16,7 @@ import java.util.Optional;
 public class MedicoService {
     @Autowired
     private  MedicoRepository medicoRepository;
+    private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
     public Medico cadastrarMedico(
             String nome,
@@ -33,9 +34,9 @@ public class MedicoService {
     ){
         Medico medico = new Medico();
 
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
-        System.out.println(cpf);
+
+
         medico.setNome(nome);
         medico.setGenero(genero);
 
@@ -67,6 +68,103 @@ public class MedicoService {
         }
 
         return medico;
+    }
 
+    public Medico atualizarMedico(
+            int id,
+            String nome,
+            String genero,
+            String dtNasccimento,
+            String cpf,
+            String rg,
+            String  estadoCivil,
+            String  telefone,
+            String email,
+            String naturalidade,
+            String crm,
+            String especializacao
+    ){
+        Optional<Medico> medico = medicoRepository.findById(id);
+
+        if (medico.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"usuario não encontrado");
+        }
+
+        if (medico.get().getCpf() != cpf){
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,"cpf não deve ser alterado");
+        }
+
+        if (medico.get().getRg() != rg){
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,"rg não deve ser alterado");
+        }
+
+        if(medico.get().getNome() != nome){
+            medico.get().setNome(nome);
+        }
+
+        if(medico.get().getGenero() != genero){
+            medico.get().setGenero(genero);
+        }
+
+        if(medico.get().getEstadoCivil() != estadoCivil){
+            medico.get().setEstadoCivil(estadoCivil);
+        }
+
+        if(medico.get().getTelefone() != telefone){
+            medico.get().setTelefone(telefone);
+        }
+
+        if(medico.get().getEmail() != email){
+            medico.get().setEmail(email);
+        }
+
+        if(medico.get().getNaturalidade() != naturalidade){
+            medico.get().setNaturalidade(naturalidade);
+        }
+
+        if(medico.get().getCrm() != crm){
+            medico.get().setCrm(crm);
+        }
+
+        if(medico.get().getEspecializacaoClinica() != especializacao){
+            medico.get().setEspecializacaoClinica(especializacao);
+        }
+
+
+
+        try{
+
+            medico.get().setDtNascimento(formato.parse(dtNasccimento));
+
+            medicoRepository.save(medico.get());
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+        }
+
+        return medico.get();
+    }
+
+    public Medico atualizarSenhaMedico(
+            int id,
+            String senha
+    ){
+        Optional<Medico> medico = medicoRepository.findById(id);
+
+        if (medico.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"usuario não encontrado");
+        }
+
+        medico.get().setSenha(senha);
+
+
+
+        try{
+
+            medicoRepository.save(medico.get());
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+        }
+
+        return medico.get();
     }
 }
