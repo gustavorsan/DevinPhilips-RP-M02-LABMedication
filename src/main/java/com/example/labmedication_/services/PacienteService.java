@@ -86,7 +86,7 @@ public class PacienteService {
         return paciente;
     }
 
-    public Paciente atualizarMedico(
+    public Paciente atualizarPaciente(
             int id,
             String nome,
             String genero,
@@ -96,7 +96,13 @@ public class PacienteService {
             String estadoCivil,
             String telefone,
             String email,
-            String naturalidade
+            String naturalidade,
+            String contatoEmergencia,
+            String listaAlergias,
+            String listaCuidados,
+            String convenio,
+            String numeroCarteira,
+            String validadeCarteira
 
     ){
         Optional<Paciente> paciente = pacienteRepository.findById(id);
@@ -137,10 +143,35 @@ public class PacienteService {
             paciente.get().setNaturalidade(naturalidade);
         }
 
+        if(paciente.get().getContatoEmergencia() != contatoEmergencia){
+            paciente.get().setContatoEmergencia(contatoEmergencia);
+        }
 
+        if(paciente.get().getConvenio() != convenio){
+            paciente.get().setConvenio(convenio);
+        }
+
+        if(paciente.get().getListaCuidadosEspecificos() != listaCuidados){
+            paciente.get().setConvenio(listaCuidados);
+        }
+
+
+        if(paciente.get().getListaAlergias() != listaAlergias){
+            paciente.get().setConvenio(listaAlergias);
+        }
+
+        if(paciente.get().getNumeroConvenio() != numeroCarteira){
+            paciente.get().setConvenio(numeroCarteira);
+        }
+
+        
         try{
 
             paciente.get().setDtNascimento(formato.parse(dtNasccimento));
+
+            if(validadeCarteira != null && validadeCarteira != ""){
+                paciente.get().setValidadeConvenio(formato.parse(validadeCarteira));
+            }
 
             pacienteRepository.save(paciente.get());
         }catch (Exception e){

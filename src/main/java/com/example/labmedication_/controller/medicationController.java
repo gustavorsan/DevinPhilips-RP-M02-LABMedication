@@ -125,7 +125,6 @@ public class medicationController {
                     userMap.get("numeroCarteira"),
                     userMap.get("validadeCarteira"),
                     endereco
-
             );
         }catch (Exception e){
             throw e;
@@ -138,7 +137,7 @@ public class medicationController {
     public Paciente atualizarPaciente(@PathVariable("id") Integer id,@RequestBody Map<String,String> userMap) throws Exception {
 
         try{
-            return  pacienteService.atualizarMedico(
+            return  pacienteService.atualizarPaciente(
                     id,
                     userMap.get("nome"),
                     userMap.get("genero"),
@@ -148,7 +147,13 @@ public class medicationController {
                     userMap.get("estadoCivil"),
                     userMap.get("telefone"),
                     userMap.get("email"),
-                    userMap.get("naturalidade")
+                    userMap.get("naturalidade"),
+                    userMap.get("contatoEmergencia"),
+                    userMap.get("listaAlergias"),
+                    userMap.get("listaCuidados"),
+                    userMap.get("convenio"),
+                    userMap.get("numeroCarteira"),
+                    userMap.get("validadeCarteira")
             );
         }catch (Exception e){
             throw e;
