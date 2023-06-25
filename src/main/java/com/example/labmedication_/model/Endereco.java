@@ -21,7 +21,7 @@ public class Endereco {
     private String logradouro;
 
     @NotNull(message = "o numero não deve ser vazio")
-    private int numero;
+    private Integer numero;
 
     private String complemento;
 

@@ -86,77 +86,67 @@ public class PacienteService {
         return paciente;
     }
 
-    public Medico atualizarMedico(
+    public Paciente atualizarMedico(
             int id,
             String nome,
             String genero,
             String dtNasccimento,
             String cpf,
             String rg,
-            String  estadoCivil,
-            String  telefone,
+            String estadoCivil,
+            String telefone,
             String email,
-            String naturalidade,
-            String crm,
-            String especializacao
-    ){
-        Optional<Medico> medico = medicoRepository.findById(id);
+            String naturalidade
 
-        if (medico.isEmpty()) {
+    ){
+        Optional<Paciente> paciente = pacienteRepository.findById(id);
+
+        if (paciente.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"usuario não encontrado");
         }
 
-        if (medico.get().getCpf() != cpf){
+        if (paciente.get().getCpf() != cpf){
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,"cpf não deve ser alterado");
         }
 
-        if (medico.get().getRg() != rg){
+        if (paciente.get().getRg() != rg){
             throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE,"rg não deve ser alterado");
         }
 
-        if(medico.get().getNome() != nome){
-            medico.get().setNome(nome);
+        if(paciente.get().getNome() != nome){
+            paciente.get().setNome(nome);
         }
 
-        if(medico.get().getGenero() != genero){
-            medico.get().setGenero(genero);
+        if(paciente.get().getGenero() != genero){
+            paciente.get().setGenero(genero);
         }
 
-        if(medico.get().getEstadoCivil() != estadoCivil){
-            medico.get().setEstadoCivil(estadoCivil);
+        if(paciente.get().getEstadoCivil() != estadoCivil){
+            paciente.get().setEstadoCivil(estadoCivil);
         }
 
-        if(medico.get().getTelefone() != telefone){
-            medico.get().setTelefone(telefone);
+        if(paciente.get().getTelefone() != telefone){
+            paciente.get().setTelefone(telefone);
         }
 
-        if(medico.get().getEmail() != email){
-            medico.get().setEmail(email);
+        if(paciente.get().getEmail() != email){
+            paciente.get().setEmail(email);
         }
 
-        if(medico.get().getNaturalidade() != naturalidade){
-            medico.get().setNaturalidade(naturalidade);
+        if(paciente.get().getNaturalidade() != naturalidade){
+            paciente.get().setNaturalidade(naturalidade);
         }
-
-        if(medico.get().getCrm() != crm){
-            medico.get().setCrm(crm);
-        }
-
-        if(medico.get().getEspecializacaoClinica() != especializacao){
-            medico.get().setEspecializacaoClinica(especializacao);
-        }
-
 
 
         try{
 
-            medico.get().setDtNascimento(formato.parse(dtNasccimento));
+            paciente.get().setDtNascimento(formato.parse(dtNasccimento));
 
-            medicoRepository.save(medico.get());
+            pacienteRepository.save(paciente.get());
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         }
 
-        return medico.get();
+        return paciente.get();
     }
 }
