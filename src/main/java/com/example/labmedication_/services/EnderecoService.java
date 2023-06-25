@@ -17,7 +17,7 @@ public class EnderecoService {
             String cidade,
             String estado,
             String logradouro,
-            Integer numero,
+            String numero,
             String complemento,
             String bairro,
             String pontoReferencia
@@ -28,12 +28,13 @@ public class EnderecoService {
         endereco.setCidade(cidade);
         endereco.setEstado(estado);
         endereco.setLogradouro(logradouro);
-        endereco.setNumero(numero);
+
         endereco.setComplemento(complemento);
         endereco.setBairro(bairro);
         endereco.setPontoReferencia(pontoReferencia);
 
         try{
+            endereco.setNumero(Integer.parseInt(numero));
             enderecoRepository.save(endereco);
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
