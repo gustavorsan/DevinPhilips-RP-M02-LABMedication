@@ -2,6 +2,8 @@ package com.example.labmedication_.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -29,6 +31,8 @@ public class Paciente extends Pessoa{
     @Column(name = "validade_convenio")
     private Date validadeConvenio;
 
-    @Column(name = "id_endereco")
-    private int endereco;
+
+    @ManyToOne
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
 }

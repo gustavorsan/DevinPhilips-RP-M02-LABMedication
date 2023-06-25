@@ -2,10 +2,12 @@ package com.example.labmedication_.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Data
 public class Medicamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,14 +30,14 @@ public class Medicamento {
     @NotNull(message = "a obsercação deve ser obrigatoria")
     private String obs;
 
-    @Column(name = "Paciente_id")
+
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
-    @Column(name = "Medico_Id")
+
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "medico_id")
     private Medico medico;
 
 
