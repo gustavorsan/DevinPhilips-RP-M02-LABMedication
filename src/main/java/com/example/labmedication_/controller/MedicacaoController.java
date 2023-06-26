@@ -20,5 +20,7 @@ public class MedicacaoController {
 
     public List<Medicamento> listar(){}
 
-    public void
+    public void exluit(){
+
+    }
 }

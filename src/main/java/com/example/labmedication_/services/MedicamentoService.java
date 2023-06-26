@@ -12,6 +12,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MedicamentoService {
@@ -29,7 +30,7 @@ public class MedicamentoService {
         return  medicamentoRepository.findAll();
     }
 
-    public Medicamento novaMedicacao(
+    public Medicamento cadastrar(
             String nome,
             String tipo,
             String unidade,
@@ -70,5 +71,43 @@ public class MedicamentoService {
 
 
         return medicamento;
+    }
+
+
+    public Medicamento atualizar(
+            String tipo,
+            String unidade,
+            String obs
+    ){
+        Medicamento medicamento = new Medicamento();
+
+        medicamento.setObs(obs);
+
+        try{
+            medicamento.setTipo(TipoMedicamento.valueOf(tipo));
+            medicamento.setUnidade(UnidadeMedicamento.valueOf(unidade));
+
+
+            medicamentoRepository.save(medicamento);
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+        }
+
+
+        return medicamento;
+    }
+
+    public void exluir(Integer id){
+        Optional<Medicamento> medicamento = medicamentoRepository.findById(id);
+
+        if (medicamento.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"usuario não encontrado");
+        }
+
+        try{
+            medicamentoRepository.delete(medicamento.get());
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+        }
     }
 }
