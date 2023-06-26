@@ -213,5 +213,8 @@ public class PacienteService {
         }
     }
 
+    public long contagem(){
+        return pacienteRepository.count();
+    }
 
 }

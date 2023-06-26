@@ -54,8 +54,12 @@ public class MedicacaoController {
         }
     }
 
-    @PutMapping("/medicamentos/{id}")
+    @DeleteMapping("/medicamentos/{id}")
     public void exluir(@PathVariable("id") Integer id){
-
+        try{
+              medicacaoService.excluir(id);
+        }catch (Exception e){
+            throw e;
+        }
     }
 }

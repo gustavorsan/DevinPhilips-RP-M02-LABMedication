@@ -102,7 +102,7 @@ public class MedicamentoService {
         return medicamento.get();
     }
 
-    public void exluir(Integer id){
+    public void excluir(Integer id){
         Optional<Medicamento> medicamento = medicamentoRepository.findById(id);
 
         if (medicamento.isEmpty()) {
@@ -114,5 +114,9 @@ public class MedicamentoService {
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         }
+    }
+
+    public long contagem(){
+        return medicamentoRepository.count();
     }
 }
