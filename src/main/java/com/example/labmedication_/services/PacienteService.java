@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 public class PacienteService {
     @Autowired
-    private PacienteRepository pacienteRepository;
+    private  PacienteRepository pacienteRepository;
     private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 
 

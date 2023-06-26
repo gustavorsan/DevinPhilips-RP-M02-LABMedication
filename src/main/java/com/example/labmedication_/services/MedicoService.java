@@ -1,6 +1,7 @@
 package com.example.labmedication_.services;
 
 import com.example.labmedication_.model.Medico;
+import com.example.labmedication_.model.Paciente;
 import com.example.labmedication_.repository.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,18 @@ public class MedicoService {
     @Autowired
     private  MedicoRepository medicoRepository;
     private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+
+    public Medico buscar(Integer id){
+        Optional<Medico> medico = medicoRepository.findById(id);
+
+        if(medico.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"usuario não encontrado");
+        }
+
+
+        return medico.get();
+    }
 
     public Medico cadastrarMedico(
             String nome,
