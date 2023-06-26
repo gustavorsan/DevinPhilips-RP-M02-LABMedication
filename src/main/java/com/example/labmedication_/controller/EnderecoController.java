@@ -17,7 +17,7 @@ public class EnderecoController {
     @Autowired
     private EnderecoService enderecoService;
 
-    @GetMapping("/paciente")
+    @GetMapping("/enderecos")
     public List<Endereco> listarEndereco() throws Exception {
 
         try{
