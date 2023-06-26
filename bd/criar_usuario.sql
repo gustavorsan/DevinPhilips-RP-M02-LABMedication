@@ -1,0 +1,18 @@
+CREATE USER labmedicationbd IDENTIFIED BY SENHA_USUARIO_AQUI DEFAULT TABLESPACE USERS TEMPORARY TABLESPACE TEMP ACCOUNT UNLOCK;
+GRANT CREATE SESSION TO labmedicationbd;
+GRANT CREATE TABLE TO labmedicationbd;
+ALTER USER labmedicationbd QUOTA UNLIMITED ON USERS;
+GRANT EXP_FULL_DATABASE TO labmedicationbd;
+GRANT CONNECT TO labmedicationbd;
+GRANT create session, alter session TO labmedicationbd;
+GRANT create procedure to labmedicationbd;
+GRANT execute any procedure to labmedicationbd;
+GRANT create table TO labmedicationbd;
+GRANT create sequence TO labmedicationbd;
+GRANT create trigger to labmedicationbd;
+GRANT create type to labmedicationbd;
+GRANT create view to labmedicationbd;
+GRANT create any index, create indextype to labmedicationbd;
+GRANT debug connect session to labmedicationbd;
+GRANT debug any procedure to labmedicationbd;
+GRANT DBA TO labmedicationbd;

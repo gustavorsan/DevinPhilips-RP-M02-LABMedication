@@ -31,6 +31,7 @@ public abstract class Pessoa implements Serializable {
     private Date dtNascimento;
 
     @NotNull(message = "Cpf não deve ser vazio")
+    @Column(unique = true)
     private String cpf;
 
     @NotNull(message = "Rg não deve ser vazio")
