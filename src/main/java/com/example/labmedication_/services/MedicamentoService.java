@@ -75,26 +75,31 @@ public class MedicamentoService {
 
 
     public Medicamento atualizar(
+            Integer id,
             String tipo,
             String unidade,
             String obs
     ){
-        Medicamento medicamento = new Medicamento();
+        Optional<Medicamento> medicamento = medicamentoRepository.findById(id);
 
-        medicamento.setObs(obs);
+        if (medicamento.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"usuario não encontrado");
+        }
+
+        medicamento.get().setObs(obs);
 
         try{
-            medicamento.setTipo(TipoMedicamento.valueOf(tipo));
-            medicamento.setUnidade(UnidadeMedicamento.valueOf(unidade));
+            medicamento.get().setTipo(TipoMedicamento.valueOf(tipo));
+            medicamento.get().setUnidade(UnidadeMedicamento.valueOf(unidade));
 
 
-            medicamentoRepository.save(medicamento);
+            medicamentoRepository.save(medicamento.get());
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
         }
 
 
-        return medicamento;
+        return medicamento.get();
     }
 
     public void exluir(Integer id){
