@@ -19,9 +19,10 @@ public class PacienteController {
     @Autowired
     private PacienteService pacienteService;
 
-
     @Autowired
     private EnderecoService enderecoService;
+
+
 
     @GetMapping("/paciente")
     public List<Paciente> listarPacientes() throws Exception {

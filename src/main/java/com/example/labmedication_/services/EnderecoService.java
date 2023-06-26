@@ -1,16 +1,24 @@
 package com.example.labmedication_.services;
 
 import com.example.labmedication_.model.Endereco;
+import com.example.labmedication_.model.Paciente;
 import com.example.labmedication_.repository.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class EnderecoService {
     @Autowired
     private EnderecoRepository enderecoRepository;
+
+
+    public List<Endereco> listar(){
+        return  enderecoRepository.findAll();
+    }
 
     public Endereco novoEndereco(
             String cep,
