@@ -18,6 +18,23 @@ public class PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository;
     private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+
+    public List<Paciente> listar(){
+        return  pacienteRepository.findAll();
+    }
+
+    public Paciente buscar(Integer id){
+        Optional<Paciente> paciente = pacienteRepository.findById(id);
+
+        if(paciente.isEmpty()){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"usuario não encontrado");
+        }
+
+
+        return paciente.get();
+    }
+
     public Paciente cadastrarPaciente(
             String nome,
             String genero,

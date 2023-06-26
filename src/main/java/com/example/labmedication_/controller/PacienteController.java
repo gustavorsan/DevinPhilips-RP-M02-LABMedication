@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,6 +22,28 @@ public class PacienteController {
 
     @Autowired
     private EnderecoService enderecoService;
+
+    @GetMapping("/paciente")
+    public List<Paciente> listarPacientes() throws Exception {
+
+        try{
+            return  pacienteService.listar();
+
+        }catch (Exception e){
+            throw e;
+        }
+    }
+
+    @GetMapping("/paciente/{id}")
+    public Paciente buscarPacientePorId(@PathVariable("id") Integer id) throws Exception {
+
+        try{
+            return  pacienteService.buscar(id);
+
+        }catch (Exception e){
+            throw e;
+        }
+    }
 
     @PostMapping("/paciente")
     @ResponseStatus(HttpStatus.CREATED)
