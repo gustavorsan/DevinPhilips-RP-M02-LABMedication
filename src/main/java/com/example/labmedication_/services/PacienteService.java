@@ -164,7 +164,6 @@ public class PacienteService {
             paciente.get().setConvenio(numeroCarteira);
         }
 
-        
         try{
 
             paciente.get().setDtNascimento(formato.parse(dtNasccimento));
@@ -180,4 +179,22 @@ public class PacienteService {
 
         return paciente.get();
     }
+
+    public void deletarPaciente(
+            int id
+    ){
+        Optional<Paciente> paciente = pacienteRepository.findById(id);
+
+        if (paciente.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"usuario não encontrado");
+        }
+
+        try{
+            pacienteRepository.delete(paciente.get());
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,e.getMessage());
+        }
+    }
+
+
 }
